@@ -1,0 +1,1072 @@
+  [1m[35m (16.5ms)[0m  [1m[35m
+	DROP
+	DATABASE IF EXISTS `app_test`[0m
+  [1m[35m (1.2ms)[0m  [1m[35m
+	CREATE
+	DATABASE `app_test` DEFAULT CHARACTER
+SET
+	`utf8`[0m
+  [1m[35m (18.6ms)[0m  [1m[35m
+	CREATE
+	TABLE
+		`board_tag_relations` (
+			`id` INT AUTO_INCREMENT PRIMARY KEY
+			,`board_id` INT
+			,`tag_id` INT
+			,`created_at` datetime NOT NULL
+			,`updated_at` datetime NOT NULL
+			,INDEX `index_board_tag_relations_on_board_id`
+				USING btree (`board_id`)
+			,INDEX `index_board_tag_relations_on_tag_id`
+				USING btree (`tag_id`)
+		) ENGINE = InnoDB DEFAULT CHARSET = utf8[0m
+  [1m[35m (10.1ms)[0m  [1m[35m
+	CREATE
+	TABLE
+		`boards` (
+			`id` INT AUTO_INCREMENT PRIMARY KEY
+			,`name` VARCHAR (255)
+			,`title` VARCHAR (255)
+			,`body` text
+			,`created_at` datetime NOT NULL
+			,`updated_at` datetime NOT NULL
+		) ENGINE = InnoDB DEFAULT CHARSET = utf8[0m
+  [1m[35m (10.6ms)[0m  [1m[35m
+	CREATE
+	TABLE
+		`comments` (
+			`id` INT AUTO_INCREMENT PRIMARY KEY
+			,`board_id` INT
+			,`name` VARCHAR (255) NOT NULL
+			,`comment` text NOT NULL
+			,`created_at` datetime NOT NULL
+			,`updated_at` datetime NOT NULL
+			,INDEX `index_comments_on_board_id`
+				USING btree (`board_id`)
+		) ENGINE = InnoDB DEFAULT CHARSET = utf8[0m
+  [1m[35m (7.5ms)[0m  [1m[35m
+	CREATE
+	TABLE
+		`tags` (
+			`id` INT AUTO_INCREMENT PRIMARY KEY
+			,`name` VARCHAR (255) NOT NULL
+			,`created_at` datetime NOT NULL
+			,`updated_at` datetime NOT NULL
+		) ENGINE = InnoDB DEFAULT CHARSET = utf8[0m
+  [1m[35m (10.1ms)[0m  [1m[35m
+	CREATE
+	TABLE
+		`users` (
+			`id` INT AUTO_INCREMENT PRIMARY KEY
+			,`name` VARCHAR (255) NOT NULL
+			,`password_digest` VARCHAR (255) NOT NULL
+			,`created_at` datetime NOT NULL
+			,`updated_at` datetime NOT NULL
+			,UNIQUE INDEX `index_users_on_name`
+				USING btree (`name`)
+		) ENGINE = InnoDB DEFAULT CHARSET = utf8[0m
+  [1m[35m (24.4ms)[0m  [1m[35m
+	ALTER TABLE
+	`board_tag_relations` ADD CONSTRAINT `fk_rails_1eb07359f9` FOREIGN KEY (`board_id`) REFERENCES `boards` (`id`)
+[0m
+  [1m[35m (22.9ms)[0m  [1m[35m
+	ALTER TABLE
+	`board_tag_relations` ADD CONSTRAINT `fk_rails_88d29ca25f` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`)
+[0m
+  [1m[35m (29.2ms)[0m  [1m[35m
+	ALTER TABLE
+	`comments` ADD CONSTRAINT `fk_rails_9510ce0f70` FOREIGN KEY (`board_id`) REFERENCES `boards` (`id`)
+[0m
+  [1m[35m (9.9ms)[0m  [1m[35m
+	CREATE
+	TABLE
+		`schema_migrations` (
+			`version` VARCHAR (255) PRIMARY KEY
+		) ENGINE = InnoDB[0m
+  [1m[35m (1.1ms)[0m  [1m[34m
+	SELECT
+		version
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (2.4ms)[0m  [1m[32m
+	INSERT
+	INTO
+		`schema_migrations` (version)
+	VALUES (20210312032706)[0m
+  [1m[35m (4.4ms)[0m  [1m[32m
+	INSERT
+	INTO
+		`schema_migrations` (version)
+	VALUES (20210309035853)
+	,(20210310082004)
+	,(20210311032750)
+	,(20210311033545)
+;
+[0m
+  [1m[35m (8.4ms)[0m  [1m[35m
+	CREATE
+	TABLE
+		`ar_internal_metadata` (
+			`key` VARCHAR (255) PRIMARY KEY
+			,`value` VARCHAR (255)
+			,`created_at` datetime NOT NULL
+			,`updated_at` datetime NOT NULL
+		) ENGINE = InnoDB[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34m
+	SELECT
+		`ar_internal_metadata`. *
+	FROM
+		`ar_internal_metadata`
+	WHERE
+		`ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32m
+	INSERT
+	INTO
+		`ar_internal_metadata` (
+			`key`
+			,`value`
+			,`created_at`
+			,`updated_at`
+		)
+	VALUES (
+		'environment'
+		,'test'
+		,'2021-03-12 09:16:56'
+		,'2021-03-12 09:16:56'
+	)[0m
+  [1m[35m (1.7ms)[0m  [1m[35m
+	COMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34m
+	SELECT
+		`ar_internal_metadata`. *
+	FROM
+		`ar_internal_metadata`
+	WHERE
+		`ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	COMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.4ms)[0m  [1m[34m
+	SELECT
+		`ar_internal_metadata`.`value`
+	FROM
+		`ar_internal_metadata`
+	WHERE
+		`ar_internal_metadata`.`key` = 'environment'[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.5ms)[0m  [1m[34m
+	SELECT
+		`ar_internal_metadata`.`value`
+	FROM
+		`ar_internal_metadata`
+	WHERE
+		`ar_internal_metadata`.`key` = 'environment'[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.5ms)[0m  [1m[34m
+	SELECT
+		`ar_internal_metadata`.`value`
+	FROM
+		`ar_internal_metadata`
+	WHERE
+		`ar_internal_metadata`.`key` = 'environment'[0m
+  [1m[35m (30.1ms)[0m  [1m[35m
+	DROP
+	DATABASE IF EXISTS `app_test`[0m
+  [1m[35m (0.4ms)[0m  [1m[35m
+	CREATE
+	DATABASE `app_test` DEFAULT CHARACTER
+SET
+	`utf8`[0m
+  [1m[35m (10.2ms)[0m  [1m[35m
+	CREATE
+	TABLE
+		`board_tag_relations` (
+			`id` INT AUTO_INCREMENT PRIMARY KEY
+			,`board_id` INT
+			,`tag_id` INT
+			,`created_at` datetime NOT NULL
+			,`updated_at` datetime NOT NULL
+			,INDEX `index_board_tag_relations_on_board_id`
+				USING btree (`board_id`)
+			,INDEX `index_board_tag_relations_on_tag_id`
+				USING btree (`tag_id`)
+		) ENGINE = InnoDB DEFAULT CHARSET = utf8[0m
+  [1m[35m (8.8ms)[0m  [1m[35m
+	CREATE
+	TABLE
+		`boards` (
+			`id` INT AUTO_INCREMENT PRIMARY KEY
+			,`name` VARCHAR (255)
+			,`title` VARCHAR (255)
+			,`body` text
+			,`created_at` datetime NOT NULL
+			,`updated_at` datetime NOT NULL
+		) ENGINE = InnoDB DEFAULT CHARSET = utf8[0m
+  [1m[35m (10.5ms)[0m  [1m[35m
+	CREATE
+	TABLE
+		`comments` (
+			`id` INT AUTO_INCREMENT PRIMARY KEY
+			,`board_id` INT
+			,`name` VARCHAR (255) NOT NULL
+			,`comment` text NOT NULL
+			,`created_at` datetime NOT NULL
+			,`updated_at` datetime NOT NULL
+			,INDEX `index_comments_on_board_id`
+				USING btree (`board_id`)
+		) ENGINE = InnoDB DEFAULT CHARSET = utf8[0m
+  [1m[35m (11.3ms)[0m  [1m[35m
+	CREATE
+	TABLE
+		`tags` (
+			`id` INT AUTO_INCREMENT PRIMARY KEY
+			,`name` VARCHAR (255) NOT NULL
+			,`created_at` datetime NOT NULL
+			,`updated_at` datetime NOT NULL
+		) ENGINE = InnoDB DEFAULT CHARSET = utf8[0m
+  [1m[35m (11.2ms)[0m  [1m[35m
+	CREATE
+	TABLE
+		`users` (
+			`id` INT AUTO_INCREMENT PRIMARY KEY
+			,`name` VARCHAR (255) NOT NULL
+			,`password_digest` VARCHAR (255) NOT NULL
+			,`created_at` datetime NOT NULL
+			,`updated_at` datetime NOT NULL
+			,`birthday` DATE
+			,UNIQUE INDEX `index_users_on_name`
+				USING btree (`name`)
+		) ENGINE = InnoDB DEFAULT CHARSET = utf8[0m
+  [1m[35m (22.7ms)[0m  [1m[35m
+	ALTER TABLE
+	`board_tag_relations` ADD CONSTRAINT `fk_rails_1eb07359f9` FOREIGN KEY (`board_id`) REFERENCES `boards` (`id`)
+[0m
+  [1m[35m (19.3ms)[0m  [1m[35m
+	ALTER TABLE
+	`board_tag_relations` ADD CONSTRAINT `fk_rails_88d29ca25f` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`)
+[0m
+  [1m[35m (18.0ms)[0m  [1m[35m
+	ALTER TABLE
+	`comments` ADD CONSTRAINT `fk_rails_9510ce0f70` FOREIGN KEY (`board_id`) REFERENCES `boards` (`id`)
+[0m
+  [1m[35m (6.7ms)[0m  [1m[35m
+	CREATE
+	TABLE
+		`schema_migrations` (
+			`version` VARCHAR (255) PRIMARY KEY
+		) ENGINE = InnoDB[0m
+  [1m[35m (0.7ms)[0m  [1m[34m
+	SELECT
+		version
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (1.4ms)[0m  [1m[32m
+	INSERT
+	INTO
+		`schema_migrations` (version)
+	VALUES (20210312092911)[0m
+  [1m[35m (1.5ms)[0m  [1m[32m
+	INSERT
+	INTO
+		`schema_migrations` (version)
+	VALUES (20210309035853)
+	,(20210310082004)
+	,(20210311032750)
+	,(20210311033545)
+	,(20210312032706)
+;
+[0m
+  [1m[35m (10.5ms)[0m  [1m[35m
+	CREATE
+	TABLE
+		`ar_internal_metadata` (
+			`key` VARCHAR (255) PRIMARY KEY
+			,`value` VARCHAR (255)
+			,`created_at` datetime NOT NULL
+			,`updated_at` datetime NOT NULL
+		) ENGINE = InnoDB[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34m
+	SELECT
+		`ar_internal_metadata`. *
+	FROM
+		`ar_internal_metadata`
+	WHERE
+		`ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32m
+	INSERT
+	INTO
+		`ar_internal_metadata` (
+			`key`
+			,`value`
+			,`created_at`
+			,`updated_at`
+		)
+	VALUES (
+		'environment'
+		,'test'
+		,'2021-03-12 09:36:30'
+		,'2021-03-12 09:36:30'
+	)[0m
+  [1m[35m (1.4ms)[0m  [1m[35m
+	COMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34m
+	SELECT
+		`ar_internal_metadata`. *
+	FROM
+		`ar_internal_metadata`
+	WHERE
+		`ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	COMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.4ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.4ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (3.2ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered users/new.html.erb within layouts/application (0.8ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 140ms (Views: 67.7ms | ActiveRecord: 1.9ms)
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered users/new.html.erb within layouts/application (0.7ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered users/new.html.erb within layouts/application (0.8ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 3ms (Views: 2.9ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (20.8ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.4ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered users/new.html.erb within layouts/application (1.0ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 152ms (Views: 68.4ms | ActiveRecord: 2.4ms)
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered users/new.html.erb within layouts/application (0.7ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 3ms (Views: 3.1ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+  Rendered users/new.html.erb within layouts/application (0.8ms)
+  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.
+Completed 200 OK in 3ms (Views: 3.0ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+  [1m[35m (1.5ms)[0m  [1m[34m
+	SELECT
+		COUNT( * )
+	FROM
+		`users`[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"user"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.4ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (1.0ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'user' LIMIT 1[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32m
+	INSERT
+	INTO
+		`users` (
+			`name`
+			,`password_digest`
+			,`created_at`
+			,`updated_at`
+		)
+	VALUES (
+		'user'
+		,'$2a$04$A.Fc5MaAduAhEbSko3ZCjuhPEkQanGumik1DLO/SXgXk/9zXed5fe'
+		,'2021-03-14 00:28:16'
+		,'2021-03-14 00:28:16'
+	)[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	RELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/mypage
+Completed 302 Found in 75ms (ActiveRecord: 2.7ms)
+  [1m[35m (0.5ms)[0m  [1m[34m
+	SELECT
+		COUNT( * )
+	FROM
+		`users`[0m
+  [1m[35m (1.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"user"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.4ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'user' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32m
+	INSERT
+	INTO
+		`users` (
+			`name`
+			,`password_digest`
+			,`created_at`
+			,`updated_at`
+		)
+	VALUES (
+		'user'
+		,'$2a$04$8FM4N1fbIoIL.YpM1J8XD.Kwrfl1uDA5zB1f.PBhAJmJ1LvUZOTUC'
+		,'2021-03-14 00:28:16'
+		,'2021-03-14 00:28:16'
+	)[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	RELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/mypage
+Completed 302 Found in 25ms (ActiveRecord: 1.3ms)
+  [1m[35m (1.5ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.4ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.3ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Redirected to http://localhost
+Completed 302 Found in 605ms (ActiveRecord: 2.6ms)
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.5ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.6ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Redirected to http://localhost
+Completed 302 Found in 22ms (ActiveRecord: 1.5ms)
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.3ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Redirected to http://localhost
+Completed 302 Found in 22ms (ActiveRecord: 1.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.4ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.3ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Redirected to http://localhost
+Completed 302 Found in 417ms (ActiveRecord: 2.2ms)
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.2ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.6ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Redirected to http://localhost
+Completed 302 Found in 22ms (ActiveRecord: 1.3ms)
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.3ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Redirected to http://localhost
+Completed 302 Found in 32ms (ActiveRecord: 1.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.3ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Completed 500 Internal Server Error in 410ms (ActiveRecord: 2.6ms)
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.4ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Completed 500 Internal Server Error in 38ms (ActiveRecord: 1.0ms)
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.3ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Completed 500 Internal Server Error in 54ms (ActiveRecord: 1.3ms)
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.4ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.4ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Redirected to http://localhost
+Completed 302 Found in 403ms (ActiveRecord: 2.3ms)
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.2ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Redirected to http://localhost
+Completed 302 Found in 16ms (ActiveRecord: 0.9ms)
+  [1m[35m (0.4ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.3ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Redirected to http://localhost
+Completed 302 Found in 17ms (ActiveRecord: 0.9ms)
+  [1m[35m (0.2ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34m
+	SELECT
+		`schema_migrations`. *
+	FROM
+		`schema_migrations`[0m
+  [1m[35m (0.4ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.3ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Redirected to http://localhost
+Completed 302 Found in 441ms (ActiveRecord: 2.6ms)
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.2ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Redirected to http://localhost
+Completed 302 Found in 19ms (ActiveRecord: 1.0ms)
+  [1m[35m (0.2ms)[0m  [1m[31m
+	ROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35m
+	BEGIN[0m
+Processing by UsersController#create as HTML
+  Parameters: 
+{
+    "user"[0;37m => [0m{
+                         "name"[0;37m => [0m[0;33m"ユーザー1"[0m,
+                     "password"[0;37m => [0m[0;33m"[FILTERED]"[0m,
+        "password_confirmation"[0;37m => [0m[0;33m"[FILTERED]"[0m
+    }
+}
+  [1m[35m (0.3ms)[0m  [1m[35m
+	SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34m
+	SELECT
+		1 AS one
+	FROM
+		`users`
+	WHERE
+		`users`.`name` = BINARY 'ユーザー1' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[31m
+	ROLLBACK TO SAVEPOINT active_record_1[0m
+Redirected to http://localhost
+Completed 302 Found in 17ms (ActiveRecord: 0.7ms)
+  [1m[35m (0.2ms)[0m  [1m[31m
+	ROLLBACK[0m
